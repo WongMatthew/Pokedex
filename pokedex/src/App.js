@@ -31,6 +31,7 @@ const App = () => {
 
   return (
     <div>
+
       <div className='FormContainer'>
         <form onSubmit={handleSubmit} className="Search" >
           <label>
@@ -41,7 +42,11 @@ const App = () => {
           </label>
         </form>
       </div>
-      <div id="pokedex">
+
+      {pokemonData.map((data) => {
+        return (
+          <div>
+            <div id="pokedex">
   <div id="left">
     <div id="logo"></div>
     <div id="bg_curve1_left"></div>
@@ -66,7 +71,7 @@ const App = () => {
         <div id="buttontopPicture2"></div>
       </div>
       <div id="picture">
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/200653/psykokwak.gif" alt="psykokwak" height="170" />
+      <img src={data.sprites["front_default"]} height="170"/>
       </div>
       <div id="buttonbottomPicture"></div>
       <div id="speakers">
@@ -99,12 +104,26 @@ const App = () => {
   </div>
   <div id="right">
     <div id="stats">
-      <strong>Name:</strong> Psyduck<br/>
-      <strong>Type:</strong> Water<br/>
-      <strong>Height:</strong> 2'072''<br/>
-      <strong>Weight:</strong> 43.2 lbs.<br/><br/>
-      <strong>The duck Pokemon</strong><br/>
-      Uses mysterious powers to perform various attacks.
+      <strong>Name:</strong> {data.species.name}<br/>
+      <strong>Type:</strong> 
+        {data.types.map(types => {
+          return types.type.name
+          .split('   ')
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(' ');
+        })
+        }<br/>
+      <strong>Height:</strong>{Math.round(data.height * 3.9)}"<br/>
+      <strong>Weight:</strong>{Math.round(data.weight / 4.3)} lbs<br/>
+      <strong>Abilities:</strong>
+        {data.abilities.map(ability => {
+          return ability.ability.name
+          .toLowerCase()
+          .split('   ')
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(' ');
+        })
+        }<br/>
     </div>
     <div id="blueButtons1">
       <div class="blueButton"></div>
@@ -132,6 +151,10 @@ const App = () => {
     <div id="curve2_right"></div>
   </div>
 </div>
+          </div>
+        );
+      })}
+
     </div>
 
     
