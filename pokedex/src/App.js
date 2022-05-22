@@ -104,11 +104,11 @@ const App = () => {
   </div>
   <div id="right">
     <div id="stats">
-      <strong>Name:</strong> {data.species.name}<br/>
+      <strong>Name:</strong>{data.species.name}<br/>
       <strong>Type:</strong> 
         {data.types.map(types => {
           return types.type.name
-          .split('   ')
+          .split(' ')
           .map(s => s.charAt(0).toUpperCase() + s.substring(1))
           .join(' ');
         })
@@ -118,8 +118,7 @@ const App = () => {
       <strong>Abilities:</strong>
         {data.abilities.map(ability => {
           return ability.ability.name
-          .toLowerCase()
-          .split('   ')
+          .split(' ')
           .map(s => s.charAt(0).toUpperCase() + s.substring(1))
           .join(' ');
         })
