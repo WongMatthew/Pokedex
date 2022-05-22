@@ -7,6 +7,10 @@
 }
 
 
+body {
+  background-image: url("https://images8.alphacoders.com/121/thumb-1920-1216910.png");
+  background-size: 100%;
+}
 
 @media all {
   .Search {
@@ -15,11 +19,21 @@
   }
 
   .FormContainer {
+    height: '1.75em';
     width: 100%;
+    border-radius: '15px';
+    font-size: '1.75em';
+    background-color: 'white transparent';
+
+    position: absolute;
+		top: 130px;
+		left: 25px;
+
   }
 
 	div#pokedex
 	{
+    padding-top: 180px;
 		width: 750px;
 		margin: 50px auto 0 auto;
 	}
@@ -694,6 +708,8 @@
 		-webkit-border-top-right-radius: 30px;
 		-moz-border-top-right-radius: 30px;
 		-o-border-top-right-radius: 30px;
+
+    opacity: 0;
 	}
 
 	div#curve2_right
@@ -711,6 +727,8 @@
 		-webkit-border-bottom-left-radius: 85px 60px;
 		-moz-border-bottom-left-radius: 85px 60px;
 		-o-border-bottom-left-radius: 85px 60px;
+
+    opacity: 0;
 	}
 
 	div#bg_curve2_right
