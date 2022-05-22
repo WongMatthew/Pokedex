@@ -124,6 +124,12 @@ const App = () => {
           .join(' ');
         })
         }<br/>
+      <strong>HP:</strong>{data.stats[0].base_stat}<br/>
+      <strong>Attack:</strong>{data.stats[1].base_stat}<br/>
+      <strong>Defense:</strong>{data.stats[2].base_stat}<br/>
+      <strong>Special Attack:</strong>{data.stats[3].base_stat}<br/>
+      <strong>Special Defense:</strong>{data.stats[4].base_stat}<br/>
+      <strong>Speed:</strong>{data.stats[5].base_stat}<br/>
     </div>
     <div id="blueButtons1">
       <div class="blueButton"></div>

@@ -17,7 +17,7 @@
   .FormContainer {
     width: 100%;
   }
-  
+
 	div#pokedex
 	{
 		width: 750px;
@@ -739,6 +739,8 @@
 		z-index: 1;
 		font-size: 13px;
 		font-family: arial, sans-serif;
+
+    overflow: scroll;
 
 		position: absolute;
 		top: 130px;
