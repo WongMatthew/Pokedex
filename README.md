@@ -15,4 +15,4 @@ LEARN MORE REACTJS✔️
 Deploy website w/ github pages or FB✔️
 
 ## To Do List (5/22/2022):
-Display random pokemon when loading into website 
+Display random pokemon when loading into website <-- not enough time to figure out, but made the function for it :c 
