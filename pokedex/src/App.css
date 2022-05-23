@@ -4,13 +4,19 @@
 * {
 	margin: 0;
 	padding: 0;
+
 }
 
 
+.pokedexContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 body {
   background-image: url("https://images8.alphacoders.com/121/thumb-1920-1216910.png");
-  position:absolute; 
-  width:100%;
+
 }
 
 .BPDex {
@@ -22,7 +28,6 @@ body {
 }
 
 @media all {
-
 	.pokedex
 	{
 		position: absolute;
@@ -30,13 +35,13 @@ body {
 		top: 0px;  
 	}
 
-  .Search 
+  	.Search 
   	{
     	display: flex;
     	justify-content: center;
   	}
 
-  	.FormContainer 
+  	.searchBar 
   	{
     	height: '1.75em';
     	border-radius: '15px';

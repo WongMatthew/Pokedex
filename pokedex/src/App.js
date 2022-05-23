@@ -56,20 +56,46 @@ const App = () => {
     });
   }
 
-  const [pokemonType, setPokemonType] = useState("");
-  const [showResults, setShowResults] = React.useState(false)
-  const onClick = () => setShowResults(true)
+  // maybe useEffect to make api call on site load (?) will need to try
+  const RAN_API_CALL = "https://pokeapi.co/api/v2/pokemon/" + pokemon;
+  function RanPokemonSearch() {
+    const pokeArray = ["zapdos","entei","pikachu","rhydon","bellsprout","magikarp","machamp","metagross","honedge","furfrou","butterfree","salandit"]
 
-  const handleChange = (e) => {
-    setPokemon(e.target.value.toLowerCase());
-  };
+    let pokemon = pokeArray[Math.floor(Math.random() * pokeArray.length)]
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    getPokemon();
-  };
+    axios.get(RAN_API_CALL).then(function (response) {
+      setPokemonData({
+        pokemon_name: pokemon,
+        name: response.data.species.name,
+        img: response.data.sprites["front_default"],
+        type: response.data.types.map(types => {
+          return types.type.name
+          .split(' ')
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(' ');
+        }),
+        height: response.data.height,
+        weight: response.data.weight,
+        health: response.data.stats[0].base_stat,
+        atk: response.data.stats[1].base_stat,
+        def: response.data.stats[2].base_stat,
+        spatk: response.data.stats[3].base_stat,
+        spdef: response.data.stats[4].base_stat,
+        spd: response.data.stats[5].base_stat,
+        ability: response.data.abilities.map(abilities => {
+          return abilities.ability.name
+          .split(' ')
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(' ');
+        }),
+      });
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
 
-  const RanPokemon = async () => {
+  const RanPokemonCall = async () => {
     const pokeArray = ["zapdos","entei","pikachu","rhydon","bellsprout","magikarp","machamp","metagross","honedge","furfrou","butterfree","salandit"]
 
     let pokemon = pokeArray[Math.floor(Math.random() * pokeArray.length)]
@@ -86,22 +112,13 @@ const App = () => {
     }
   };
 
-  const getPokemon = async () => {
-    const toArray = [];
-    try {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-      const res = await axios.get(url);
-      toArray.push(res.data);
-      setPokemonType(res.data.types[0].type.name);
-      setPokemonData(toArray);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  console.log(pokemonData);
+  const [pokemonType, setPokemonType] = useState("");
+  const [showResults, setShowResults] = React.useState(false)
+  const onClick = () => setShowResults(true)
 
   return (
-      <div>
+      <div className='pokedexContainer'>
+        
           <label className='searchBar'>
             <input type="text" onChange={e => setSearchText(e.target.value)} placeholder="enter pokemon name"/>
             <button onClick={e => {
