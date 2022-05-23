@@ -9,7 +9,8 @@
 
 body {
   background-image: url("https://images8.alphacoders.com/121/thumb-1920-1216910.png");
-  background-size: 100%;
+  position:absolute; 
+  width:100%;
 }
 
 .BPDex {
@@ -21,28 +22,32 @@ body {
 }
 
 @media all {
-  .Search {
-    display: flex;
-    justify-content: center;
-  }
+  .Search 
+  	{
+    	display: flex;
+    	justify-content: center;
+  	}
 
-  .FormContainer {
-    height: '1.75em';
-    width: 100%;
-    border-radius: '15px';
-    font-size: '1.75em';
-    background-color: 'white transparent';
+  	.FormContainer 
+  	{
+    	height: '1.75em';
+    	border-radius: '15px';
+    	font-size: '1.75em';
+    	background-color: 'white transparent';
+		width: 100%;
+    	z-index: 2;
 
-    z-index: 2;
+		display: flex;
+		width: 500px;
 
-    position: absolute;
+		position: absolute;
 		top: 330px;
-		left: 135px;
-  }
+		left: 1010px;
+  	}
 
 	div#pokedex
 	{
-    padding-top: 180px;
+		padding-top: 180px;
 		width: 750px;
 		margin: 50px auto 0 auto;
 	}

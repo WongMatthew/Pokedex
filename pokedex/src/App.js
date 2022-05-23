@@ -18,6 +18,23 @@ const App = () => {
     getPokemon();
   };
 
+  const RanPokemon = async () => {
+    const pokeArray = ["zapdos","entei","pikachu","rhydon","bellsprout","magikarp","machamp","metagross","honedge","furfrou","butterfree","salandit"]
+
+    let pokemon = pokeArray[Math.floor(Math.random() * pokeArray.length)]
+
+    const toArray = [];
+    try {
+      const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+      const res = await axios.get(url);
+      toArray.push(res.data);
+      setPokemonType(res.data.types[0].type.name);
+      setPokemonData(toArray);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const getPokemon = async () => {
     const toArray = [];
     try {
