@@ -2,12 +2,63 @@ import React from 'react';
 import './App.css';
 import {useState} from 'react';
 import axios from "axios";
-import BlankPokedex from './BlankPokedex';
 
 const App = () => {
+  const [searchText, setSearchText] = useState("");
   const [pokemon, setPokemon] = useState("froakie");
-  const [pokemonData, setPokemonData] = useState([]);
+  const [pokemonData, setPokemonData] = useState({
+    pokemon_id: "",
+    name: "",
+    img: "",
+    height: "",
+    weight: "",
+    type: "",
+    HP: "",
+    Attack: "",
+    Defense: "",
+    SpecialAttack: "",
+    SpecialDefense: "",
+    Speed: "",
+    Abilities: ""
+  });
+
+  const API_CALL = "https://pokeapi.co/api/v2/pokemon/" + searchText;
+  function searchForPokemon(event) {
+    axios.get(API_CALL).then(function (response) {
+      setPokemonData({
+        pokemon_name: searchText,
+        name: response.data.species.name,
+        img: response.data.sprites["front_default"],
+        type: response.data.types.map(types => {
+          return types.type.name
+          .split(' ')
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(' ');
+        }),
+        height: response.data.height,
+        weight: response.data.weight,
+        health: response.data.stats[0].base_stat,
+        atk: response.data.stats[1].base_stat,
+        def: response.data.stats[2].base_stat,
+        spatk: response.data.stats[3].base_stat,
+        spdef: response.data.stats[4].base_stat,
+        spd: response.data.stats[5].base_stat,
+        ability: response.data.abilities.map(abilities => {
+          return abilities.ability.name
+          .split(' ')
+          .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+          .join(' ');
+        }),
+      });
+      console.log(response);
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }
+
   const [pokemonType, setPokemonType] = useState("");
+  const [showResults, setShowResults] = React.useState(false)
+  const onClick = () => setShowResults(true)
 
   const handleChange = (e) => {
     setPokemon(e.target.value.toLowerCase());
@@ -50,22 +101,16 @@ const App = () => {
   console.log(pokemonData);
 
   return (
-    <div>
-      <div className='FormContainer'>
-        <form onSubmit={handleSubmit} className="Search" >
-          <label>
-            <input
-              type="text"
-              onChange={handleChange}
-              placeholder="enter pokemon name"/>
+      <div>
+          <label className='searchBar'>
+            <input type="text" onChange={e => setSearchText(e.target.value)} placeholder="enter pokemon name"/>
+            <button onClick={e => {
+              searchForPokemon(e)
+              onClick()
+            }}>Search</button>
           </label>
-        </form>
-      </div>
-    <BlankPokedex/>
-      {pokemonData.map((data) => {
-        return (
-    <div>
-      <div id="pokedex">
+          <div className="BPDex">
+        <div id="pokedex">
         <div id="left">
           <div id="logo"></div>
           <div id="bg_curve1_left"></div>
@@ -90,7 +135,7 @@ const App = () => {
               <div id="buttontopPicture2"></div>
             </div>
             <div id="picture">
-            <img src={data.sprites["front_default"]} height="170"/>
+            <img src={pokemonData.img} height="170"/>
             </div>
             <div id="buttonbottomPicture"></div>
             <div id="speakers">
@@ -123,31 +168,19 @@ const App = () => {
         </div>
         <div id="right">
           <div id="stats">
-            <strong>Name:</strong>{data.species.name}<br/>
-            <strong>Type:</strong> 
-              {data.types.map(types => {
-                return types.type.name
-                .split(' ')
-                .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                .join(' ');
-              })
-              }<br/>
-            <strong>Height:</strong>{Math.round(data.height * 3.9)}"<br/>
-            <strong>Weight:</strong>{Math.round(data.weight / 4.3)} lbs<br/>
-            <strong>Abilities:</strong>
-              {data.abilities.map(ability => {
-                return ability.ability.name
-                .split(' ')
-                .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                .join(' ');
-              })
-              }<br/>
-            <strong>HP:</strong>{data.stats[0].base_stat}<br/>
-            <strong>Attack:</strong>{data.stats[1].base_stat}<br/>
-            <strong>Defense:</strong>{data.stats[2].base_stat}<br/>
-            <strong>Special Attack:</strong>{data.stats[3].base_stat}<br/>
-            <strong>Special Defense:</strong>{data.stats[4].base_stat}<br/>
-            <strong>Speed:</strong>{data.stats[5].base_stat}<br/>
+          <div>
+            <p>Name: {pokemonData.name}</p>
+            <p>Height: {pokemonData.height}</p>
+            <p>Weight: {pokemonData.weight}</p>
+            <p>Type: {pokemonData.type}</p>
+            <p>HP: {pokemonData.health}</p>
+            <p>Attack: {pokemonData.atk}</p>
+            <p>Defense: {pokemonData.def}</p>
+            <p>SpecialAttack: {pokemonData.spatk}</p>
+            <p>SpecialDefense: {pokemonData.spdef}</p>
+            <p>Speed: {pokemonData.spd}</p>
+            <p>Abilities: {pokemonData.ability}</p>
+          </div>
           </div>
           <div id="blueButtons1">
             <div class="blueButton"></div>
@@ -176,11 +209,8 @@ const App = () => {
         </div>
       </div>
     </div>
-        );
-      })}
-
-    </div>
+      </div>
    );
-};
+}
 
 export default App;

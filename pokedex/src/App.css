@@ -22,6 +22,14 @@ body {
 }
 
 @media all {
+
+	.pokedex
+	{
+		position: absolute;
+		left: 585px;
+		top: 0px;  
+	}
+
   .Search 
   	{
     	display: flex;
@@ -68,8 +76,6 @@ body {
 		float: left;
 		position: relative;
 	}
-
-
 
 	/* //// LEFT PART //// */
 
@@ -334,6 +340,7 @@ body {
 		-webkit-border-radius: 15px;
 		-moz-border-radius: 15px;
 		-o-border-radius: 15px;
+		
 	}
 
 	div#picture img
