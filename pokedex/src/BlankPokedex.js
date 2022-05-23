@@ -1,54 +1,10 @@
-import React from 'react';
-import './App.css';
-import {useState} from 'react';
-import axios from "axios";
-import BlankPokedex from './BlankPokedex';
+import * as React from "react";
 
-const App = () => {
-  const [pokemon, setPokemon] = useState("froakie");
-  const [pokemonData, setPokemonData] = useState([]);
-  const [pokemonType, setPokemonType] = useState("");
-
-  const handleChange = (e) => {
-    setPokemon(e.target.value.toLowerCase());
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    getPokemon();
-  };
-
-  const getPokemon = async () => {
-    const toArray = [];
-    try {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-      const res = await axios.get(url);
-      toArray.push(res.data);
-      setPokemonType(res.data.types[0].type.name);
-      setPokemonData(toArray);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  console.log(pokemonData);
+function BlankPokedex() {
 
   return (
-    <div>
-      <div className='FormContainer'>
-        <form onSubmit={handleSubmit} className="Search" >
-          <label>
-            <input
-              type="text"
-              onChange={handleChange}
-              placeholder="enter pokemon name"/>
-          </label>
-        </form>
-      </div>
-    <BlankPokedex/>
-      {pokemonData.map((data) => {
-        return (
-    <div>
-      <div id="pokedex">
+    <div className="BPDex">
+        <div id="pokedex">
         <div id="left">
           <div id="logo"></div>
           <div id="bg_curve1_left"></div>
@@ -73,7 +29,7 @@ const App = () => {
               <div id="buttontopPicture2"></div>
             </div>
             <div id="picture">
-            <img src={data.sprites["front_default"]} height="170"/>
+            <img src="" height="170"/>
             </div>
             <div id="buttonbottomPicture"></div>
             <div id="speakers">
@@ -106,31 +62,17 @@ const App = () => {
         </div>
         <div id="right">
           <div id="stats">
-            <strong>Name:</strong>{data.species.name}<br/>
-            <strong>Type:</strong> 
-              {data.types.map(types => {
-                return types.type.name
-                .split(' ')
-                .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                .join(' ');
-              })
-              }<br/>
-            <strong>Height:</strong>{Math.round(data.height * 3.9)}"<br/>
-            <strong>Weight:</strong>{Math.round(data.weight / 4.3)} lbs<br/>
-            <strong>Abilities:</strong>
-              {data.abilities.map(ability => {
-                return ability.ability.name
-                .split(' ')
-                .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                .join(' ');
-              })
-              }<br/>
-            <strong>HP:</strong>{data.stats[0].base_stat}<br/>
-            <strong>Attack:</strong>{data.stats[1].base_stat}<br/>
-            <strong>Defense:</strong>{data.stats[2].base_stat}<br/>
-            <strong>Special Attack:</strong>{data.stats[3].base_stat}<br/>
-            <strong>Special Defense:</strong>{data.stats[4].base_stat}<br/>
-            <strong>Speed:</strong>{data.stats[5].base_stat}<br/>
+            <strong>Name:</strong><br/>
+            <strong>Type:</strong><br/>
+            <strong>Height:</strong><br/>
+            <strong>Weight:</strong><br/>
+            <strong>Abilities:</strong><br/>
+            <strong>HP:</strong><br/>
+            <strong>Attack:</strong><br/>
+            <strong>Defense:</strong><br/>
+            <strong>Special Attack:</strong><br/>
+            <strong>Special Defense:</strong><br/>
+            <strong>Speed:</strong><br/>
           </div>
           <div id="blueButtons1">
             <div class="blueButton"></div>
@@ -159,11 +101,7 @@ const App = () => {
         </div>
       </div>
     </div>
-        );
-      })}
+  );
+}
 
-    </div>
-   );
-};
-
-export default App;
+export default BlankPokedex; 

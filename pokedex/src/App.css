@@ -12,6 +12,14 @@ body {
   background-size: 100%;
 }
 
+.BPDex {
+  z-index: 1;
+
+  position: absolute;
+  left: 585px;
+  top: 0px;
+}
+
 @media all {
   .Search {
     display: flex;
@@ -25,10 +33,11 @@ body {
     font-size: '1.75em';
     background-color: 'white transparent';
 
-    position: absolute;
-		top: 130px;
-		left: 25px;
+    z-index: 2;
 
+    position: absolute;
+		top: 330px;
+		left: 135px;
   }
 
 	div#pokedex
